@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'product_detail.dart';
 import 'login.dart';
 
 class ProductManagementScreen extends StatefulWidget {
@@ -317,89 +318,114 @@ class _ProductManagementScreenState extends State<ProductManagementScreen> {
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
                     DocumentSnapshot documentSnapshot = snapshot.data!.docs[index];
-                    return Card(
-                      elevation: 3,
-                      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Stack(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Flexible(
-                                  flex: 3,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: documentSnapshot["productImage"] != null
-                                        ? Image.network(
-                                      documentSnapshot["productImage"],
-                                      height: 100,
-                                      fit: BoxFit.cover,
-                                    )
-                                        : Icon(Icons.image_not_supported,
-                                        size: 50, color: Colors.grey),
-                                  ),
-                                ),
-                                SizedBox(width: 12),
-                                Flexible(
-                                  flex: 7,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        documentSnapshot["productName"],
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16,
+                    return GestureDetector(
+                      onTap: () {
+                        // Điều hướng đến ProductDetailScreen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProductDetailScreen(
+                              productId: documentSnapshot.id,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Card(
+                        elevation: 3,
+                        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Stack(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Row(
+                                children: [
+                                  // Ảnh sản phẩm
+                                  Flexible(
+                                    flex: 3,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: documentSnapshot["productImage"] != null &&
+                                          documentSnapshot["productImage"].isNotEmpty
+                                          ? Image.network(
+                                        documentSnapshot["productImage"],
+                                        height: 100,
+                                        width: 100,
+                                        fit: BoxFit.cover,
+                                      )
+                                          : Container(
+                                        height: 100,
+                                        width: 100,
+                                        color: Colors.grey[300],
+                                        child: const Icon(
+                                          Icons.image_not_supported,
+                                          size: 50,
+                                          color: Colors.grey,
                                         ),
                                       ),
-                                      Text("Loại: ${documentSnapshot["productType"]}"),
-                                      Text("Giá: ${documentSnapshot["productPrice"]}"),
-                                    ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                  const SizedBox(width: 12),
+                                  // Thông tin sản phẩm
+                                  Flexible(
+                                    flex: 7,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          documentSnapshot["productName"] ?? "Tên sản phẩm",
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                        Text("Loại: ${documentSnapshot["productType"] ?? "Không rõ"}"),
+                                        Text("Giá: ${documentSnapshot["productPrice"] ?? "0"} VND"),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          // Nút chỉnh sửa và xóa nằm phía trên cùng, căn phải
-                          Positioned(
-                            right: 8, // Đặt khoảng cách từ cạnh phải
-                            top: 8, // Đặt khoảng cách từ cạnh trên
-                            child: Row(
-                              children: [
-                                Tooltip(
-                                  message: "Chỉnh sửa",
-                                  child: IconButton(
-                                    icon: Icon(Icons.edit),
-                                    color: Colors.blue,
-                                    onPressed: () {
-                                      openEditForm(
-                                        documentSnapshot.id,
-                                        documentSnapshot["productName"],
-                                        documentSnapshot["productType"],
-                                        documentSnapshot["productPrice"],
-                                        documentSnapshot["productImage"],
-                                      );
-                                    },
+                            // Nút chỉnh sửa và xóa
+                            Positioned(
+                              right: 8,
+                              top: 8,
+                              child: Row(
+                                children: [
+                                  Tooltip(
+                                    message: "Chỉnh sửa",
+                                    child: IconButton(
+                                      icon: const Icon(Icons.edit),
+                                      color: Colors.blue,
+                                      onPressed: () {
+                                        openEditForm(
+                                          documentSnapshot.id,
+                                          documentSnapshot["productName"],
+                                          documentSnapshot["productType"],
+                                          documentSnapshot["productPrice"],
+                                          documentSnapshot["productImage"],
+                                        );
+                                      },
+                                    ),
                                   ),
-                                ),
-                                Tooltip(
-                                  message: "Xóa",
-                                  child: IconButton(
-                                    icon: Icon(Icons.delete),
-                                    color: Colors.red,
-                                    onPressed: () {
-                                      openDeleteConfirmation(documentSnapshot.id);
-                                    },
+                                  Tooltip(
+                                    message: "Xóa",
+                                    child: IconButton(
+                                      icon: const Icon(Icons.delete),
+                                      color: Colors.red,
+                                      onPressed: () {
+                                        openDeleteConfirmation(documentSnapshot.id);
+                                      },
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     );
                   },

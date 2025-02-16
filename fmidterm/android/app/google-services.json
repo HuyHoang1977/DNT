@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "944330309366",
+    "firebase_url": "https://fmidterm-4db05-default-rtdb.firebaseio.com",
+    "project_id": "fmidterm-4db05",
+    "storage_bucket": "fmidterm-4db05.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:944330309366:android:f36d03e3b5dde3d120b6d7",
+        "android_client_info": {
+          "package_name": "com.example.fmidterm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGS-_oc01rPNCs16M60B57kBF5rq0VF6s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

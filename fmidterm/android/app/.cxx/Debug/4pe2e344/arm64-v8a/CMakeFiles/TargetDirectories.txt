@@ -1,0 +1,2 @@
+D:/Code/Flutter/DNT/fmidterm/android/app/.cxx/Debug/4pe2e344/arm64-v8a/CMakeFiles/edit_cache.dir
+D:/Code/Flutter/DNT/fmidterm/android/app/.cxx/Debug/4pe2e344/arm64-v8a/CMakeFiles/rebuild_cache.dir

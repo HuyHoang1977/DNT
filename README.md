@@ -23,7 +23,6 @@
 ### Lab 5: Xylophone Flutter App
 - **Mô tả**: Ứng dụng phát âm thanh khi nhấn vào từng thanh xylophone trên màn hình.
 ### Lab 6: Quizzler
-- **Link mã nguồn**: [GitHub - Quizzler](https://github.com/TTDungz/quiz_app)
 - **Mô tả**: Ứng dụng kiểm tra kiến thức với các câu hỏi trắc nghiệm. Sau mỗi 5 câu hỏi, ứng dụng hiển thị số câu trả lời đúng của người dùng.
 ### Lab 7: Boss Level Challenge 2
 - **Mô tả**: Ứng dụng trò chơi kể chuyện tương tác, nơi người chơi điều hướng câu chuyện thông qua các lựa chọn. Mỗi quyết định dẫn đến các nhánh câu chuyện khác nhau, tạo ra kết quả đa dạng.

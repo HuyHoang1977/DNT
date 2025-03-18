@@ -1,4 +1,4 @@
-import 'package:clima_flutter/screens/city_screen.dart';
+import 'package:lab9/screens/city_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '/utilities/constants.dart';
